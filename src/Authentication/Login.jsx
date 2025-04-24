@@ -32,7 +32,7 @@ const SignIn = ({ onLogin }) => {
 
     // Redirect based on role
     if (userRole === "farmer") {
-      navigate("/dashboard"); // Original sidebar/dashboard for farmers
+      navigate("/dashboard/climate-forecast");
     } else {
       navigate("/dashboard/home"); // DashboardHome component for regular users
     }
