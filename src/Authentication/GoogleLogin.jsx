@@ -23,18 +23,14 @@ const GoogleLogin = ({ onLogin, userRole }) => {
       }
 
       // Redirect based on role
-      navigate(
-        userRole === "farmer"
-          ? "/dashboard/climate-forecast"
-          : "/dashboard/home"
-      );
-    } catch (error) {
-      if (error.code === "auth/popup-closed-by-user") {
-        console.warn("Popup was closed by the user.");
+      if (userRole === "farmer") {
+        navigate("/dashboard");
       } else {
-        console.error("Login Failed:", error);
-        alert("Google sign-in failed. Please try again.");
+        navigate("/dashboard/home");
       }
+    } catch (error) {
+      console.error("Login Failed:", error);
+      alert("Login failed. Check console for details.");
     } finally {
       setLoading(false);
     }
