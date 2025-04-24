@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -19,15 +17,15 @@ import Carbon from "./pages/Carbon_credit.jsx";
 import Chat from "./pages/Chat.jsx";
 import Hubs from "./pages/Hubs.jsx";
 
-import TaskManagement from './pages/TaskManagement.jsx';
+import TaskManagement from "./pages/TaskManagement.jsx";
 
 // Dashboard (Protected)
 import Sidebar from "./pages/Sidebar.jsx";
 import DashboardHome from "./pages/sidebar/DashboardHome.jsx";
 
 // Common layout
-import Layout from './Components/Layout.jsx';
-import Suggestions from './pages/Suggestions.jsx';
+import Layout from "./Components/Layout.jsx";
+import Suggestions from "./pages/Suggestions.jsx";
 
 // Floating chatbot
 import FloatingChatbot from "./FloatingChatbot.jsx";
@@ -74,22 +72,28 @@ function App() {
           element={<Layout isLoggedIn={isLoggedIn} onLogout={handleLogout} />}
         >
           <Route path="/" element={<HeroPage />} />
-          <Route path="/features" element={
-            <>
-            <Welcome/>
-            <Climate/>
-            <Disease/>
-            <Fertilizer/>
-            <Carbon/>
-            <Chat/>
-            <Hubs/>
-            </>
-          }/>
-          <Route/>
+          <Route
+            path="/features"
+            element={
+              <>
+                <Welcome />
+                <Climate />
+                <Disease />
+                <Fertilizer />
+                <Carbon />
+                <Chat />
+                <Hubs />
+              </>
+            }
+          />
+          <Route />
 
           <Route path="/about" element={<AboutUs />} />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
-          <Route path="/google-login" element={<GoogleLogin onLogin={handleLogin} />} />
+          <Route
+            path="/google-login"
+            element={<GoogleLogin onLogin={handleLogin} />}
+          />
 
           {/* Protected Suggestions + TaskManagement for farmers */}
           <Route
@@ -146,5 +150,3 @@ function App() {
 }
 
 export default App;
- 
->>>>>>> 8303d73ae2937936d07fb964fdfaad0a8c6b5c5e
