@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -145,3 +147,4 @@ function App() {
 
 export default App;
  
+>>>>>>> 8303d73ae2937936d07fb964fdfaad0a8c6b5c5e
