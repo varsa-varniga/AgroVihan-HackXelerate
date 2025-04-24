@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { signInWithPopup } from "firebase/auth";
-import { auth, provider } from "firebaseConfig";
+import { auth, provider } from "../firebaseConfig";
 import { Button } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import { useNavigate } from "react-router-dom";
@@ -23,14 +23,18 @@ const GoogleLogin = ({ onLogin, userRole }) => {
       }
 
       // Redirect based on role
-      if (userRole === "farmer") {
-        navigate("/dashboard");
-      } else {
-        navigate("/dashboard/home");
-      }
+      navigate(
+        userRole === "farmer"
+          ? "/dashboard/climate-forecast"
+          : "/dashboard/home"
+      );
     } catch (error) {
-      console.error("Login Failed:", error);
-      alert("Login failed. Check console for details.");
+      if (error.code === "auth/popup-closed-by-user") {
+        console.warn("Popup was closed by the user.");
+      } else {
+        console.error("Login Failed:", error);
+        alert("Google sign-in failed. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
