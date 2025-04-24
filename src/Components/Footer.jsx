@@ -47,9 +47,9 @@ const Footer = () => {
                 </Typography>
                 <Typography variant="body2" fontWeight="bold" mt={1}>
                   Contact No: <br />
-                  8888842300, 8888842290,
+                  9876543210, 8765432109,
                   <br />
-                  8888842280, 8888842325
+                  7654321098, 6543210987
                 </Typography>
                 <Typography variant="body2" mt={1}>
                   Address: <br />
@@ -103,7 +103,6 @@ const Footer = () => {
                   <Link href="#" underline="hover" sx={{ color: "black" }}>Terms & Conditions</Link>
                   <Link href="#" underline="hover" sx={{ color: "black" }}>Privacy Policy</Link>
                   <Link href="#" underline="hover" sx={{ color: "black" }}>Download our app</Link>
-                  <Link href="#" underline="hover" sx={{ color: "black" }}>Sell on Mahaagro</Link>
                 </Stack>
               </Grid>
 
@@ -138,10 +137,10 @@ const Footer = () => {
               }}
             >
               <Typography variant="body2" sx={{ color: "white" }}>
-                Designed and Developed by Huda's Technologies ©2023
+                Designed and Developed by Visionary Minds
               </Typography>
               <Typography variant="body2" sx={{ color: "white" }}>
-                Over 132,505 visits to our website!
+                Over 1,43,143 visits to our website!
               </Typography>
             </Box>
           </Box>

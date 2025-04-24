@@ -14,22 +14,22 @@ import Welcome4 from "../assets/Welcome_4.png";
 const features = [
   {
     title: "100% Natural",
-    description: "Consectetur adipiscing elit. Enim, nec at iaculis in. Faucibus arcu varius",
+    description: "Grown with care, free from chemicals — purely natural and organic.",
     image: Welcome1,
   },
   {
     title: "100% Organic",
-    description: "Consectetur adipiscing elit. Enim, nec at iaculis in. Faucibus arcu varius",
+    description: "Grown naturally, free from chemicals — pure, healthy, and sustainable food.",
     image: Welcome2,
   },
   {
     title: "Fresh Product",
-    description: "Consectetur adipiscing elit. Enim, nec at iaculis in. Faucibus arcu varius",
+    description: "Fresh, locally-sourced produce delivered daily for peak flavor and nutrition.",
     image: Welcome3,
   },
   {
     title: "Best Quality",
-    description: "Consectetur adipiscing elit. Enim, nec at iaculis in. Faucibus arcu varius",
+    description: "Healthy soils, sustainable practices, biodiversity, and ethical production for future generations.",
     image: Welcome4,
   },
 ];
@@ -74,9 +74,10 @@ const WelcomeSection = () => {
           mb={4}
           maxWidth="750px"
         >
-          Quis vehicula vitae et facilisi at nulla leo ut curabitur. Ipsum,
-          fringilla imperdiet nisi faucibus pharetra egestas nunc, mattis.
-          Risus lectus enim tincidunt.
+          Welcome to Agro Vihan, where we cultivate healthy, sustainable, and 
+          eco-friendly produce. Our organic farming practices promote soil health, 
+          biodiversity, and a greener future for generations to come.
+
         </Typography>
 
 
