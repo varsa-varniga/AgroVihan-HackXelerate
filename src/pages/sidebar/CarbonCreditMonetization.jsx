@@ -101,17 +101,13 @@ const FarmerCarbonCreditCalculator = () => {
     return () => unsubscribe();
   }, []);
 
-  // Add this to the useEffect section
   useEffect(() => {
-    // Initialize IndexedDB
     initDB().catch((err) =>
       console.error("Failed to initialize IndexedDB:", err)
     );
 
-    // Check for offline calculations to sync
     checkOfflineCalculations();
 
-    // Add event listeners for online/offline status
     const handleOnline = () => {
       setIsOnline(true);
       syncOfflineData();
@@ -168,17 +164,16 @@ const FarmerCarbonCreditCalculator = () => {
     }
   };
 
-  // Carbon credit calculation constants
-  const CARBON_CREDIT_RATE = 1000; // 1 credit = 1000 kg CO2
+  const CARBON_CREDIT_RATE = 1000; 
   const CALCULATION_VALUES = {
-    treesPlanted: 21, // kg CO2 per tree per year
-    organicFertilizer: 110, // kg CO2 per acre per year
-    solarPump: 1500, // kg CO2 per pump per year
-    noTillFarming: 300, // kg CO2 per acre per year
-    coverCropping: 250, // kg CO2 per acre per year
-    cowReduction: 1200, // kg CO2 per cow per year
-    rainwaterHarvesting: 200, // kg CO2 per system per year
-    electricPump: 1000, // kg CO2 per pump per year
+    treesPlanted: 21,
+    organicFertilizer: 110, 
+    solarPump: 1500, 
+    noTillFarming: 300, 
+    coverCropping: 250, 
+    cowReduction: 1200, 
+    rainwaterHarvesting: 200, 
+    electricPump: 1000, 
   };
 
   const saveCarbonData = async (email, username, carbonCredits, co2Saved) => {
@@ -187,7 +182,7 @@ const FarmerCarbonCreditCalculator = () => {
 
       const userCollection = collection(db, "carbonCalculations");
 
-      // Step 1: Check for existing records
+
       const q = query(userCollection, where("email", "==", email));
       const querySnapshot = await getDocs(q);
 
@@ -207,14 +202,14 @@ const FarmerCarbonCreditCalculator = () => {
       console.log("🧮 Total credits after addition:", totalCredits);
 
       const calculateScore = (co2Saved) => {
-        // Simple scoring logic - adjust as needed
+       
         if (co2Saved > 5000) return 90;
         if (co2Saved > 2000) return 75;
         if (co2Saved > 1000) return 60;
         return 50;
       };
 
-      // Step 2: Add new document
+
       const docRef = await addDoc(userCollection, {
         email,
         username,
@@ -251,7 +246,6 @@ const FarmerCarbonCreditCalculator = () => {
   const calculateCredits = async () => {
     setLoading(true);
     setTimeout(async () => {
-      // Calculate CO2 savings for each practice
       const treesCO2 = formData.treesPlanted * CALCULATION_VALUES.treesPlanted;
       const organicFertCO2 =
         formData.organicFertilizerAcres * CALCULATION_VALUES.organicFertilizer;
@@ -267,7 +261,6 @@ const FarmerCarbonCreditCalculator = () => {
       const electricPumpCO2 =
         formData.electricPumps * CALCULATION_VALUES.electricPump;
 
-      // Total CO2 saved in kg
       const totalCO2 =
         treesCO2 +
         organicFertCO2 +
@@ -278,7 +271,6 @@ const FarmerCarbonCreditCalculator = () => {
         rainwaterCO2 +
         electricPumpCO2;
 
-      // Calculate carbon credits (1 credit = 1000 kg CO2)
       const credits = totalCO2 / CARBON_CREDIT_RATE;
 
       const resultData = {
@@ -299,14 +291,13 @@ const FarmerCarbonCreditCalculator = () => {
 
       setResults(resultData);
 
-      // Try to save to Firebase if online, otherwise save locally
       if (navigator.onLine) {
         try {
-          // Save to Firebase
+
           await saveCarbonData(userEmail, username, credits, totalCO2);
         } catch (error) {
           console.error("Failed to save to Firebase, storing offline:", error);
-          // Save offline if Firebase fails
+
           await saveCalculationOffline({
             email: userEmail,
             username,
@@ -317,7 +308,7 @@ const FarmerCarbonCreditCalculator = () => {
           setPendingUploads((prev) => prev + 1);
         }
       } else {
-        // Save offline if not connected
+
         await saveCalculationOffline({
           email: userEmail,
           username,
@@ -345,7 +336,6 @@ const FarmerCarbonCreditCalculator = () => {
       setLoading(true);
       setError(null);
 
-      // Prepare practice details for blockchain storage
       const practiceDetails = {
         treesPlanted: formData.treesPlanted,
         organicFertilizer: formData.organicFertilizerAcres,
@@ -357,7 +347,7 @@ const FarmerCarbonCreditCalculator = () => {
         electricPumps: formData.electricPumps,
       };
 
-      // Save to blockchain
+
       const result = await saveCarbonCreditsToBlockchain(
         username || "Anonymous",
         results.credits,
@@ -365,7 +355,7 @@ const FarmerCarbonCreditCalculator = () => {
         practiceDetails
       );
 
-      // Update UI with transaction hash
+
       setTxHash(result.txHash);
       setSavedToBlockchain(true);
 
@@ -377,7 +367,7 @@ const FarmerCarbonCreditCalculator = () => {
         results.totalCO2
       );
 
-      // Show success message
+
       console.log("Successfully saved to blockchain!", result);
     } catch (err) {
       console.error("Error saving to blockchain:", err);
@@ -387,10 +377,7 @@ const FarmerCarbonCreditCalculator = () => {
     }
   };
 
-  // New function to update blockchain status in Firebase
-  // In the updateBlockchainStatus function (around line 343)
 
-  // The updated updateBlockchainStatus function
   const updateBlockchainStatus = async (
     email,
     username,
@@ -403,18 +390,15 @@ const FarmerCarbonCreditCalculator = () => {
 
       const userCollection = collection(db, "carbonCalculations");
 
-      // Step 1: Find the existing document for the user
       const q = query(userCollection, where("email", "==", email));
       const querySnapshot = await getDocs(q);
 
-      // For finding the most recently created document
       let mostRecentDoc = null;
       let mostRecentTimestamp = null;
 
       if (!querySnapshot.empty) {
         querySnapshot.forEach((doc) => {
           const data = doc.data();
-          // Find the most recent document to update
           if (
             !mostRecentTimestamp ||
             (data.timestamp && data.timestamp.toDate() > mostRecentTimestamp)
@@ -426,7 +410,6 @@ const FarmerCarbonCreditCalculator = () => {
           }
         });
 
-        // Step 2: Update the most recent document with blockchain details
         if (mostRecentDoc) {
           const docRef = doc(db, "carbonCalculations", mostRecentDoc.id);
 
@@ -443,7 +426,6 @@ const FarmerCarbonCreditCalculator = () => {
         }
       }
 
-      // Also create a new blockchain verification record
       const verificationRecord = await addDoc(userCollection, {
         email,
         username,
@@ -453,16 +435,16 @@ const FarmerCarbonCreditCalculator = () => {
         txHash: txHash,
         blockchainTimestamp: Timestamp.now(),
         walletAddress: walletAddress,
-        details: formData, // Also save calculation details
+        details: formData, 
         timestamp: Timestamp.now(),
-        verificationRecord: true, // Flag to indicate this is a verification record
+        verificationRecord: true, 
       });
 
       console.log("✅ Blockchain verification record saved to Firestore!");
       console.log("📄 Verification Document ID:", verificationRecord.id);
     } catch (error) {
       console.error("❌ Error saving blockchain data:", error);
-      // Even if this fails, don't break the user experience
+
     }
   };
 
@@ -478,11 +460,11 @@ const FarmerCarbonCreditCalculator = () => {
     alert("Share functionality would be implemented here");
   };
 
-  // Helper function to get environmental impact statements
+
   const getImpactStatements = (co2) => {
     const statements = [];
     const treesEquivalent = Math.round(co2 / CALCULATION_VALUES.treesPlanted);
-    const carsEquivalent = (co2 / 2000).toFixed(1); // Average car emits ~2 tons CO2/year
+    const carsEquivalent = (co2 / 2000).toFixed(1);
 
     if (treesEquivalent > 0) {
       statements.push(`Equivalent to ${treesEquivalent} trees planted`);
@@ -518,7 +500,7 @@ const FarmerCarbonCreditCalculator = () => {
       setLoading(true);
 
       for (const item of unsyncedData) {
-        // Save to Firebase
+  
         await saveCarbonData(
           item.email,
           item.username,
@@ -526,11 +508,11 @@ const FarmerCarbonCreditCalculator = () => {
           item.co2Saved
         );
 
-        // Mark as synced
+
         await markAsSynced(item.id);
       }
 
-      // Update pending uploads count
+    
       setPendingUploads(0);
       setLoading(false);
     } catch (error) {
@@ -548,9 +530,7 @@ const FarmerCarbonCreditCalculator = () => {
         pb: 6,
       }}
     >
-      {/* Network Status Indicator */}
       <NetworkStatus pendingUploads={pendingUploads} />
-      {/* Main Content */}
       <Container maxWidth="lg" sx={{ py: 4 }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -566,7 +546,6 @@ const FarmerCarbonCreditCalculator = () => {
               border: isMobile ? "none" : "1px solid rgba(46, 125, 50, 0.1)",
             }}
           >
-            {/* Card Header */}
             <Box
               sx={{
                 py: 4,
@@ -607,7 +586,6 @@ const FarmerCarbonCreditCalculator = () => {
                 sustainable farming
               </Typography>
 
-              {/* Animated leaves */}
               <Box
                 sx={{
                   position: "absolute",
@@ -623,9 +601,7 @@ const FarmerCarbonCreditCalculator = () => {
             </Box>
 
             <CardContent sx={{ p: isMobile ? 2 : 4 }}>
-              {/* Form Section */}
               <Grid container spacing={3}>
-                {/* Trees Planted */}
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
@@ -664,7 +640,6 @@ const FarmerCarbonCreditCalculator = () => {
                   />
                 </Grid>
 
-                {/* Organic Fertilizer Acres */}
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
@@ -693,7 +668,6 @@ const FarmerCarbonCreditCalculator = () => {
                   />
                 </Grid>
 
-                {/* Solar Pumps */}
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
@@ -722,7 +696,6 @@ const FarmerCarbonCreditCalculator = () => {
                   />
                 </Grid>
 
-                {/* No-Till Acres */}
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
@@ -751,7 +724,6 @@ const FarmerCarbonCreditCalculator = () => {
                   />
                 </Grid>
 
-                {/* Cover Crop Acres */}
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
@@ -780,7 +752,6 @@ const FarmerCarbonCreditCalculator = () => {
                   />
                 </Grid>
 
-                {/* Cows Reduced */}
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
