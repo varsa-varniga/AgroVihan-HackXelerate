@@ -65,7 +65,7 @@ export default function CropMonitoringDashboard() {
     process.env.REACT_APP_WEATHER_API_KEY;
   const lat = 11.0168;
   const lon = 76.9558;
-  const BACKEND_URL = "http://localhost:5000/suggest";
+  const BACKEND_URL = "http://localhost:5001/suggest";
 
   // Firebase config - Updated to match ESP32 path
   const FIREBASE_URL =
