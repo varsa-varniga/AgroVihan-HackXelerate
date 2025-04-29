@@ -783,7 +783,7 @@ const Details = () => {
                                   <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                                     <BookIcon fontSize="small" sx={{ color: district.color, mr: 1 }} />
                                     <Typography variant="body2">
-                                      Author: {book.author}
+                                      Name: {book.author}
                                     </Typography>
                                   </Box>
                                 </Grid>
@@ -1069,7 +1069,7 @@ const Details = () => {
           <Grid container spacing={2}  direction="column">
             <Grid item xs={12}>
               <TextField
-                label="Book Title"
+                label="Purpose"
                 name="title"
                 value={bookFormData.title}
                 onChange={handleBookFormChange}
@@ -1081,7 +1081,7 @@ const Details = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="Author"
+                label="Name"
                 name="author"
                 value={bookFormData.author}
                 onChange={handleBookFormChange}

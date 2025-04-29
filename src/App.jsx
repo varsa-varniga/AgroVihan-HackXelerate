@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 // Auth pages
 import GoogleLogin from "./Authentication/GoogleLogin.jsx";
 import Login from "./Authentication/Login.jsx";
+import NammalvarPage from "./pages/Nammalvar.jsx";
 import "./App.css";
 
 // Public pages
@@ -77,6 +78,7 @@ function App() {
             <Welcome/>
             <Climate/>
             <Disease/>
+            <NammalvarPage/>
             <Fertilizer/>
             <Carbon/>
             <Chat/>

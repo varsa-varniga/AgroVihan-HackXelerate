@@ -138,15 +138,13 @@ import {
               // User data exists in Firestore
               const userData = userDoc.data();
               setUserData({
-                name: userData.name || user.displayName || user.email.split('@')[0],
-                location: userData.location || "Unknown Location"
+                name: userData.name || user.displayName || user.email.split('@')[0]
               });
               setUserAvatar(userData.photoURL || user.photoURL);
             } else {
               // No user document but user is authenticated
               setUserData({
-                name: user.displayName || user.email.split('@')[0],
-                location: "Unknown Location"
+                name: user.displayName || user.email.split('@')[0]
               });
               setUserAvatar(user.photoURL);
             }
@@ -154,16 +152,14 @@ import {
             console.error("Error fetching user data:", error);
             // Fallback to auth user data
             setUserData({
-              name: user.displayName || user.email.split('@')[0],
-              location: "Unknown Location"
+              name: user.displayName || user.email.split('@')[0]
             });
             setUserAvatar(user.photoURL);
           }
         } else {
           // User is signed out, set default data
           setUserData({
-            name: "Guest User",
-            location: "Unknown Location"
+            name: "Guest User"
           });
           setUserAvatar(null);
         }
@@ -172,7 +168,7 @@ import {
       // Cleanup subscription
       return () => unsubscribe();
     }, []);
-   
+    
     useEffect(() => {
       const fetchWeatherAndForecast = async () => {
         try {
